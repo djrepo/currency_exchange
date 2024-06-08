@@ -1,0 +1,18 @@
+# Batch script to configure the datasource
+batch
+
+# Start by creating the JDBC datasource
+/subsystem=datasources/data-source=MariaDS:add(connection-url="maria", jndi-name="java:jboss/datasources/MariaDS", driver-name=maria, user-name="root", password="admin", use-java-context=true)
+/subsystem=datasources/data-source=MariaDS:write-attribute(name=min-pool-size,value=10)
+/subsystem=datasources/data-source=MariaDS:write-attribute(name=max-pool-size,value=50)
+/subsystem=datasources/data-source=TestDS:add(connection-url="jdbc:h2:mem:shorter-test;DB_CLOSE_ON_EXIT=FALSE;DB_CLOSE_DELAY=-1", jndi-name="java:jboss/datasources/TestDS", driver-name=h2, user-name="sa", password="sa", use-java-context=true)
+
+/subsystem=undertow/server=default-server/http-listener=default:write-attribute(name=max-header-size, value=974247881)
+
+# Run the batch commands
+run-batch
+
+# Reload the server configuration
+#reload
+
+

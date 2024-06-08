@@ -1,0 +1,63 @@
+TASK:
+
+Descrition:
+	Import MongoDB dump into SQL Database and provide a REST endpoint to read imported data deployed on a java enterprise server.
+	
+The dump file:
+	The file "euraud.json" contains a dump of marketdata "quotes" for the currency pair EUR/AUD
+
+Relevant fields are:
+	"time": unix timestamp in nano second format (19 digits)
+	"bid": SELL price as int64. Divide by 1.000.000 to get double representation
+	"ask": BUY price as int64. Divide by 1.000.000 to get double representation
+	"bidVolume": SELL quantity in cents. Divide by 100 to get to normal value. Trading down to cents is very uncommon and not part in this dump
+	"askVolume": BUY quantity in cents. Divide by 100 to get to normal value. Trading down to cents is very uncommon and not part in this dump
+	
+The database:
+	Create a table to store this quote information.
+	
+The application server:
+	Use a build tool that creates a standard .war file which is able to be deployed to standard java enterprise servers
+	
+The endpoints:
+	1) Import from file
+		provide one REST endpoint with a parameter "file" that points to a file on the local machine.
+		Read the mongo dump any way you wish. Attention: Every row in the mongo DB dump only represents one quote: ask OR bid. If bid and bidVolume is set, ask and askVolume is 0
+		Insert every quote into the database table. Any method is fine.
+		
+	2) Read quotes
+		provide one REST endpoint with parameters: 
+			* timeFrom: UTC timestamp
+			* timeTo: UTC timestamp
+			* type optional: ASK, BID
+		Construct a query based on the parameters so the user is able to look at imported quotes by supplying the date boundaries and which type he is interested in, or both if no type is supplied.
+		Read data from the database and construct a nice response JSON like:
+		[
+			{
+				"time": {unix timestamp},
+				"type": "ASK",
+				"price": 1.2345
+				"volume": 1000000
+			},
+			....
+		]
+		
+
+Preferred technologies, the ones we use currently:
+
+IDE:
+	IntelliJ
+build tool:
+	Maven
+database:
+	MariaDB
+java enterprise server:
+	Wildfly
+	
+Notes:
+	You can use older server versions which still use old JavaEE and javax packages or you can do it with the new Jakarta. We are currently in the process of thinking about migrating.
+	ORMs like Hibernate is not required for DB access, we do not use ORMs currently in our application
+	Wildfly for example provides libraries like Jackson out of the box for easier JSON reading and writing. It is also easy using the javax.json provided classes.
+	
+https://github.com/bwajtr/java-persistence-frameworks-comparison
+	
