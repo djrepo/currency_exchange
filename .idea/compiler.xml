@@ -8,19 +8,23 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
       </profile>
-      <profile name="Annotation profile for shortener" enabled="true">
+      <profile name="Annotation profile for currency-exchange" enabled="true">
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <processorPath useClasspath="false">
           <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok/1.18.32/lombok-1.18.32.jar" />
         </processorPath>
-        <module name="shortener" />
+        <module name="currency-exchange" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="shortener" target="11" />
+    </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="currency-exchange" options="-Xlint:unchecked" />
       <module name="shortener" options="-Xlint:unchecked" />
     </option>
   </component>

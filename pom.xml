@@ -26,12 +26,12 @@
         <version>43</version>
     </parent>
 
-    <groupId>com.shorturl</groupId>
-    <artifactId>shortener</artifactId>
+    <groupId>com.bbf</groupId>
+    <artifactId>currency-exchange</artifactId>
     <version>1.0.0-SNAPSHOT</version>
 
     <packaging>war</packaging>
-    <name>shortener</name>
+    <name>currency-exchange</name>
     <description>Insert description for your project here.</description>
 
     <properties>
@@ -50,7 +50,7 @@
         <version.infinispan>13.0.21.Final</version.infinispan>
         <version.pack.datasources>7.0.0.Final</version.pack.datasources>
         <version.lombok>1.18.32</version.lombok>
-        <version.arquillian>1.6.0.Final</version.arquillian>
+        <version.arquillian>1.8.0.Final</version.arquillian>
         <version.arquillian.persistence>1.0.0.Alpha7</version.arquillian.persistence>
 
         <!--Use JUnit 5 here - the WildFly bom still brings 4.x -->
@@ -218,6 +218,12 @@
             <version>1.16.1</version>
         </dependency>
 
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-collections4</artifactId>
+            <version>4.4</version>
+        </dependency>
+
         <!-- Test scope dependencies -->
         <dependency>
             <groupId>org.junit.jupiter</groupId>
@@ -228,6 +234,18 @@
         <dependency>
             <groupId>org.jboss.arquillian.junit5</groupId>
             <artifactId>arquillian-junit5-container</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.jboss.arquillian.junit</groupId>
+            <artifactId>arquillian-junit-container</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
             <scope>test</scope>
         </dependency>
 
@@ -263,12 +281,6 @@
             <version>4.6.0</version>
         </dependency>
 
-        <dependency>
-            <groupId>org.jsonschema2pojo</groupId>
-            <artifactId>jsonschema2pojo-core</artifactId>
-            <version>1.2.1</version>
-            <scope>test</scope>
-        </dependency>
     </dependencies>
 
     <build>
@@ -366,6 +378,9 @@
                         <artifactId>maven-failsafe-plugin</artifactId>
                         <version>${version.failsafe.plugin}</version>
                         <configuration>
+                            <systemPropertyVariables>
+                                <arquillian.launch>arq-weld</arquillian.launch>
+                            </systemPropertyVariables>
                             <includes>
                                 <include>**/*IT</include>
                             </includes>

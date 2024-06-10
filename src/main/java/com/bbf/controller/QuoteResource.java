@@ -1,7 +1,8 @@
 package com.bbf.controller;
 
 import com.bbf.model.QuoteEntity;
-import com.bbf.model.mongo.Quote;
+import com.bbf.model.json.ReadQuoteRequest;
+import com.bbf.model.json.ReadQuoteResponse;
 import com.bbf.service.IQuoteService;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.*;
@@ -26,16 +27,20 @@ public class QuoteResource {
     /**
      * Read quotes in db
      *
-     * @param from UTC timestamp
-     * @param to UTC timestamp
-     * @param type optional: ASK, BID
+     * @param readQuoteRequest json object defining query contains
+     * from UTC timestamp
+     * to UTC timestamp
+     * type optional: ASK, BID
      * @return list of quotes matches query parameters
      */
-    @GET
+    @POST
     @Path("/read")
-    public Response readQuotes(@QueryParam("from") long from,@QueryParam("from") long to,@FormParam("type") String type) {
-        log.info("read quote endpoint from:"+from+", to:"+to+", type:"+type);
-        List<QuoteEntity> quoteList = currencyService.readQuotes(from,to, Optional.of(type));
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response readQuotes(ReadQuoteRequest readQuoteRequest) {
+        log.info("Read quote endpoint from:"+ readQuoteRequest.getFromTime()+", to:"+ readQuoteRequest.getToTime()+", type:"+ readQuoteRequest.getQuoteType());
+        List<ReadQuoteResponse> quoteList = currencyService.readQuotes(readQuoteRequest.getFromTime(), readQuoteRequest.getToTime(), Optional.ofNullable(readQuoteRequest.getQuoteType()));
+        log.info("Found : "+quoteList.size() +" quotes");
         return Response.ok(quoteList).build();
     }
 

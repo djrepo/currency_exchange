@@ -3,24 +3,41 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>Welcome to Url shortener Application Server</title>
+    <title>Welcome to Quotes Application Server</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="wildfly.css">
     <link rel="shortcut icon" href="favicon.ico" type="image/x-icon"/>
     <script>
         (() => {
             "use script";
+            let fromTime = document.querySelector('#fromInput')
+            fromTime.value='2018-08-07T13:23'
+            let toTime = document.querySelector('#toInput')
+            toTime.value='2018-08-09T13:23'
+            function convertToTimestamp(datetimeStr) {
+                const date = new Date(datetimeStr);
+                //return Math.floor(date.getTime() / 1000);
+                return date.getTime();
+            }
+
+
             window.addEventListener("load", () => {
                 const button = document.querySelector("button[type='submit']");
                 button.addEventListener("click", (event) => {
                     event.preventDefault();
-                    let longUrl = document.querySelector('#urlInput');
-                    longUrl = longUrl.value;
+                    let fromTime = document.querySelector('#fromInput');
+                    fromTime = convertToTimestamp(fromTime.value);
+                    let toTime = document.querySelector('#toInput');
+                    toTime = convertToTimestamp(toTime.value);
+                    let quoteType = document.querySelector('#typeInput');
+                    quoteType = quoteType.value;
                     const result = document.querySelector('#result');
                     const data = JSON.stringify({
-                        long_url: longUrl
+                        from_time: fromTime,
+                        to_time: toTime,
+                        quote_type: quoteType
                     });
-                    fetch(`/api/shortify/`, {
+                    fetch(`/api/read/`, {
                         method: "POST",
                         mode: "cors", // no-cors, *cors, same-origin
                         cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
@@ -50,19 +67,27 @@
             <div class="grid grid-cols-6 gap-4">
                 <div class="col-start-2 col-span-4 mb-8">
                     <h1 class="text-2xl font-medium text-blue-500">
-                        <span class="text-blue-500">URL Shortener</span>
+                        <span class="text-blue-500">Quotes reader</span>
                     </h1>
                 </div>
                 <div class="col-start-2 col-end-4">
-                    <input size="150" id="urlInput"
+                    <input size="150" id="fromInput"
                             class=" border-2 border-blue-600 rounded-md backdrop-blur-xl bg-white/20 shadow-md px-3 py-3"
-                            type="text"
-                            placeholder=https://....
+                            type="datetime-local"
+                    />
+                    <input size="150" id="toInput"
+                           class=" border-2 border-blue-600 rounded-md backdrop-blur-xl bg-white/20 shadow-md px-3 py-3"
+                           type="datetime-local"
+                    />
+                    <input size="150" id="typeInput"
+                           class=" border-2 border-blue-600 rounded-md backdrop-blur-xl bg-white/20 shadow-md px-3 py-3"
+                           type="text"
+                           placeholder="ASK or BID"
                     />
                 </div>
                 <div class="col-start-4 col-end-6">
                     <button type="submit" class="bg-blue-500 text-white px-8 py-3 ml-4 rounded-md">
-                        Generate short url
+                        Read quotes
                     </button>
                 </div>
                 <div class="col-start-1 col-end-7 mt-8">
