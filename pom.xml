@@ -238,18 +238,6 @@
         </dependency>
 
         <dependency>
-            <groupId>org.jboss.arquillian.junit</groupId>
-            <artifactId>arquillian-junit-container</artifactId>
-            <scope>test</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <scope>test</scope>
-        </dependency>
-
-        <dependency>
             <groupId>org.wildfly.arquillian</groupId>
             <artifactId>wildfly-arquillian-container-managed</artifactId>
             <scope>test</scope>
@@ -378,9 +366,6 @@
                         <artifactId>maven-failsafe-plugin</artifactId>
                         <version>${version.failsafe.plugin}</version>
                         <configuration>
-                            <systemPropertyVariables>
-                                <arquillian.launch>arq-weld</arquillian.launch>
-                            </systemPropertyVariables>
                             <includes>
                                 <include>**/*IT</include>
                             </includes>

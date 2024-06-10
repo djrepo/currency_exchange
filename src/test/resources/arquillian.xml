@@ -22,8 +22,6 @@
     <container default="true" qualifier="wildfly">
         <configuration>
             <property name="jbossHome">target/server</property>
-            <property name="javaVmArguments">-Djboss.socket.binding.port-offset=100</property>
-            <property name="managementPort">10090</property>
         </configuration>
     </container>
 </arquillian>
