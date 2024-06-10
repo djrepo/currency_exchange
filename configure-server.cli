@@ -1,10 +1,13 @@
 # Batch script to configure the datasource
 batch
 
+module add --name=org.mariadb.jdbc --resources=${db.driver.path} --dependencies=jakarta.xml.bind.api,jakarta.transaction.api
+
 # Start by creating the JDBC datasource
-/subsystem=datasources/data-source=MariaDS:add(connection-url="maria", jndi-name="java:jboss/datasources/MariaDS", driver-name=maria, user-name="root", password="admin", use-java-context=true)
-/subsystem=datasources/data-source=MariaDS:write-attribute(name=min-pool-size,value=10)
-/subsystem=datasources/data-source=MariaDS:write-attribute(name=max-pool-size,value=50)
+/subsystem=datasources/jdbc-driver=mariadb:add(driver-module-name=org.mariadb.jdbc, driver-name=mariadb, driver-xa-datasource-class-name="org.mariadb.jdbc.MariaDbDataSource")
+/subsystem=datasources/data-source=MariaDS:add(connection-url="${db.url}", jndi-name="java:jboss/datasources/MariaDS", driver-name=mariadb, user-name=${db.user.name}, password=${db.user.pass}, use-java-context=true)
+/subsystem=datasources/data-source=MariaDS:write-attribute(name=min-pool-size,value=${db.pooling.min-pool-size})
+/subsystem=datasources/data-source=MariaDS:write-attribute(name=max-pool-size,value=${db.pooling.max-pool-size})
 /subsystem=datasources/data-source=TestDS:add(connection-url="jdbc:h2:mem:shorter-test;DB_CLOSE_ON_EXIT=FALSE;DB_CLOSE_DELAY=-1", jndi-name="java:jboss/datasources/TestDS", driver-name=h2, user-name="sa", password="sa", use-java-context=true)
 
 /subsystem=undertow/server=default-server/http-listener=default:write-attribute(name=max-header-size, value=974247881)

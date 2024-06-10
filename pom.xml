@@ -176,21 +176,9 @@
         </dependency>
 
         <dependency>
-            <groupId>commons-dbutils</groupId>
-            <artifactId>commons-dbutils</artifactId>
-            <version>1.8.1</version>
-        </dependency>
-
-        <dependency>
             <groupId>com.h2database</groupId>
             <artifactId>h2</artifactId>
             <scope>provided</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>org.jooq</groupId>
-            <artifactId>jooq</artifactId>
-            <version>${version.org.jooq}</version>
         </dependency>
 
         <dependency>
@@ -314,7 +302,6 @@
 
                         </configuration>
                     </plugin>
-
                     <!--Build configuration for the WAR plugin: -->
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
@@ -349,6 +336,7 @@
                                 <layer>cloud-server</layer>
                                 <layer>microprofile-config</layer>
                                 <layer>h2-datasource</layer>
+                                <layer>transactions</layer>
                             </layers>
                             <packaging-scripts>
                                 <packaging-script>
@@ -356,8 +344,11 @@
                                         <!-- Enable data source in standalone.xml -->
                                         <script>${basedir}/configure-server.cli</script>
                                     </scripts>
+                                    <properties-files>
+                                        <file>src/main/resources/config.properties</file>
+                                    </properties-files>
                                     <!-- Expressions resolved during server execution -->
-                                    <resolve-expressions>false</resolve-expressions>
+                                    <resolve-expressions>true</resolve-expressions>
                                 </packaging-script>
                             </packaging-scripts>
                         </configuration>
