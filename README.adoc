@@ -10,6 +10,7 @@ The `src/main` folder contains a simple 'Currency_exchange' Jakarta EE applicati
 
 In order to run this application you need to install Maria DB and input necessary information to property file:
 src/main/resources/config.properties
+Your Maria DB installation need empty database (e.g. named it trade )
 
 To build the application, you use Maven:
 

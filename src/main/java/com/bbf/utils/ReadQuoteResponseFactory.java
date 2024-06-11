@@ -10,12 +10,12 @@ public class ReadQuoteResponseFactory {
         readQuoteResponse.setTime(ConversionUtils.convertToUtcTimestamp(entity.getTime()));
         if (entity.getAsk()>0){
             readQuoteResponse.setType(QuoteType.ASK);
-            readQuoteResponse.setPrice(ConversionUtils.calcPrice(entity.getAskVolume(),entity.getAsk()));
-            readQuoteResponse.setVolume(ConversionUtils.calcQuantity(entity.getAsk()));
+            readQuoteResponse.setPrice(ConversionUtils.normalizePrice(entity.getAsk()));
+            readQuoteResponse.setVolume(ConversionUtils.normalizeQuantity(entity.getAskVolume()));
         } else {
             readQuoteResponse.setType(QuoteType.BID);
-            readQuoteResponse.setPrice(ConversionUtils.calcPrice(entity.getBidVolume(),entity.getAsk()));
-            readQuoteResponse.setVolume(ConversionUtils.calcQuantity(entity.getBid()));
+            readQuoteResponse.setPrice(ConversionUtils.normalizePrice(entity.getBid()));
+            readQuoteResponse.setVolume(ConversionUtils.normalizeQuantity(entity.getBidVolume()));
         }
         return readQuoteResponse;
     }

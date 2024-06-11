@@ -17,11 +17,11 @@ import java.util.List;
 @Slf4j
 public class QuoteRepository implements IQuoteRepository {
 
-    private static final String FIND_BY_BOUNDARIES = "SELECT u FROM QuoteEntity u WHERE u.time >= :from and u.time < :to";
+    private static final String FIND_BY_BOUNDARIES = "SELECT u FROM QuoteEntity u WHERE u.time >= :from and u.time < :to order by u.time";
 
-    private static final String FIND_BY_BOUNDARIES_AND_TYPE_ASK = "SELECT u FROM QuoteEntity u WHERE u.time >= :from and u.time < :to and u.ask > 0";
+    private static final String FIND_BY_BOUNDARIES_AND_TYPE_ASK = "SELECT u FROM QuoteEntity u WHERE u.time >= :from and u.time < :to and u.ask > 0 order by u.time";
 
-    private static final String FIND_BY_BOUNDARIES_AND_TYPE_BID = "SELECT u FROM QuoteEntity u WHERE u.time >= :from and u.time < :to and u.bid > 0";
+    private static final String FIND_BY_BOUNDARIES_AND_TYPE_BID = "SELECT u FROM QuoteEntity u WHERE u.time >= :from and u.time < :to and u.bid > 0 order by u.time";
 
     @PersistenceContext
     private EntityManager entityManager;

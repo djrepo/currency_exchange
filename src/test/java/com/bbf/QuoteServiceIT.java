@@ -31,8 +31,6 @@ import java.util.List;
  */
 @ExtendWith(ArquillianExtension.class)
 @Slf4j
-//@CleanupUsingScript("clean-database.sql")
-//@UsingDataSet("init-database.xml")
 public class QuoteServiceIT {
 
     @Deployment

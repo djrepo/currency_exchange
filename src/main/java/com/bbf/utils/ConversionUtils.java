@@ -1,5 +1,8 @@
 package com.bbf.utils;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 public class ConversionUtils {
 
     public static long convertToUnixTimestamp(long utcTimestamp){
@@ -10,11 +13,13 @@ public class ConversionUtils {
         return unixTimestamp/1000000;
     }
 
-    public static double calcPrice(long unitPrice, long quantity){
-        return unitPrice/1000000*calcQuantity(quantity);
+    public static double normalizePrice(long unitPrice){
+        log.info("unitPrice:"+unitPrice);
+        log.info("normalizedUnitPrice:"+unitPrice/1000000d);
+        return unitPrice/1000000d;
     }
 
-    public static double calcQuantity(long quantity){
-        return quantity/100;
+    public static double normalizeQuantity(long quantity){
+        return quantity/100d;
     }
 }

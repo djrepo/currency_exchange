@@ -50,7 +50,14 @@ public class QuoteService implements IQuoteService {
 
     public List<ReadQuoteResponse> readQuotes(long from, long to, Optional<String> type) {
         List<QuoteEntity> entities = readQuoteEntities(from,to,type);
-        return entities.parallelStream().map(e -> ReadQuoteResponseFactory.createQuoteResponse(e)).collect(Collectors.toList());
+        for (QuoteEntity entity : entities) {
+                log.info(entity.toString());
+        }
+        List<ReadQuoteResponse> collect = entities.parallelStream().map(e -> ReadQuoteResponseFactory.createQuoteResponse(e)).collect(Collectors.toList());
+        for (ReadQuoteResponse readQuoteResponse : collect) {
+            log.info(readQuoteResponse.toString());
+        }
+        return collect;
     }
 
     private List<QuoteEntity> readQuoteEntities(long from, long to, Optional<String> type) {

@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
@@ -14,6 +15,7 @@ import java.time.LocalDateTime;
 @Cacheable
 @Getter
 @Setter
+@ToString
 @NoArgsConstructor
 public class QuoteEntity implements Serializable {
     /** Default value included to remove warning. Remove or modify at will. **/

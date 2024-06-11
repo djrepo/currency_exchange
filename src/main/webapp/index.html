@@ -10,18 +10,17 @@
     <script>
         (() => {
             "use script";
-            let fromTime = document.querySelector('#fromInput')
-            fromTime.value='2018-08-07T13:23'
-            let toTime = document.querySelector('#toInput')
-            toTime.value='2018-08-09T13:23'
+
             function convertToTimestamp(datetimeStr) {
                 const date = new Date(datetimeStr);
                 //return Math.floor(date.getTime() / 1000);
                 return date.getTime();
             }
 
-
             window.addEventListener("load", () => {
+                document.querySelector('#fromInput').value = '2018-08-07T13:23';
+                document.querySelector('#toInput').value='2018-08-09T13:23'
+
                 const button = document.querySelector("button[type='submit']");
                 button.addEventListener("click", (event) => {
                     event.preventDefault();
