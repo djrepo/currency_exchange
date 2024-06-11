@@ -1,8 +1,6 @@
 package com.bbf.service;
 
-import com.bbf.model.QuoteEntity;
 import com.bbf.model.json.ReadQuoteResponse;
-import com.bbf.model.mongo.Quote;
 
 import java.io.InputStream;
 import java.util.List;

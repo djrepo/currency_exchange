@@ -1,7 +1,6 @@
 package com.bbf.repository;
 
 import com.bbf.model.QuoteEntity;
-import com.bbf.model.mongo.Quote;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
@@ -11,7 +10,7 @@ import lombok.extern.slf4j.Slf4j;
 import java.util.List;
 
 /**
- * Repository class for managing URL entities.
+ * Repository class for managing Quote entities.
  */
 @ApplicationScoped
 @Slf4j

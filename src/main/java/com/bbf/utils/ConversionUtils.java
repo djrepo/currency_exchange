@@ -14,8 +14,6 @@ public class ConversionUtils {
     }
 
     public static double normalizePrice(long unitPrice){
-        log.info("unitPrice:"+unitPrice);
-        log.info("normalizedUnitPrice:"+unitPrice/1000000d);
         return unitPrice/1000000d;
     }
 

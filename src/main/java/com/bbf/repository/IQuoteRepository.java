@@ -1,7 +1,6 @@
 package com.bbf.repository;
 
 import com.bbf.model.QuoteEntity;
-import com.bbf.model.mongo.Quote;
 
 import java.util.List;
 

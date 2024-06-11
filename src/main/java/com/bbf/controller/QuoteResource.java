@@ -1,11 +1,13 @@
 package com.bbf.controller;
 
-import com.bbf.model.QuoteEntity;
 import com.bbf.model.json.ReadQuoteRequest;
 import com.bbf.model.json.ReadQuoteResponse;
 import com.bbf.service.IQuoteService;
 import jakarta.inject.Inject;
-import jakarta.ws.rs.*;
+import jakarta.ws.rs.Consumes;
+import jakarta.ws.rs.POST;
+import jakarta.ws.rs.Path;
+import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.EntityPart;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
@@ -28,9 +30,9 @@ public class QuoteResource {
      * Read quotes in db
      *
      * @param readQuoteRequest json object defining query contains
-     * from UTC timestamp
-     * to UTC timestamp
-     * type optional: ASK, BID
+     *                         from UTC timestamp
+     *                         to UTC timestamp
+     *                         type optional: ASK, BID
      * @return list of quotes matches query parameters
      */
     @POST
@@ -38,9 +40,9 @@ public class QuoteResource {
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public Response readQuotes(ReadQuoteRequest readQuoteRequest) {
-        log.info("Read quote endpoint from:"+ readQuoteRequest.getFromTime()+", to:"+ readQuoteRequest.getToTime()+", type:"+ readQuoteRequest.getQuoteType());
+        log.info("Read quote endpoint from:" + readQuoteRequest.getFromTime() + ", to:" + readQuoteRequest.getToTime() + ", type:" + readQuoteRequest.getQuoteType());
         List<ReadQuoteResponse> quoteList = currencyService.readQuotes(readQuoteRequest.getFromTime(), readQuoteRequest.getToTime(), Optional.ofNullable(readQuoteRequest.getQuoteType()));
-        log.info("Found : "+quoteList.size() +" quotes");
+        log.info("Found : " + quoteList.size() + " quotes");
         return Response.ok(quoteList).build();
     }
 
@@ -57,9 +59,8 @@ public class QuoteResource {
         log.info("Upload of MongoDB dump file");
         EntityPart file = parts.stream().filter(part -> "file".equals(part.getName())).findFirst().orElseThrow();
         int imported = currencyService.importToDb(file.getContent());
-        return Response.ok("Imported entries: "+imported).build();
+        return Response.ok("Imported entries: " + imported).build();
     }
-
 
 
 }
