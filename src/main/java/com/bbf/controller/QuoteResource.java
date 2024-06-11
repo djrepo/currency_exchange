@@ -17,7 +17,7 @@ import java.util.List;
 import java.util.Optional;
 
 /**
- * JAX-RS resource class for handling URL shortening operations.
+ * JAX-RS resource class for viewing and storing historical quote-s.
  */
 @Path("/")
 @Slf4j
